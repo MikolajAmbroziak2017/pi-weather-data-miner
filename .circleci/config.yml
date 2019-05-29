@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11.0.1-jdk
+
+    working_directory: ~/pi-weather-data-miner
+
+    steps:
+      # git pull
+      - checkout
+
+      # Setup env
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: Login to DockerHub
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+      - run:
+          name: Decrpyt Secrets
+          command: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.properties.secrets -out src/main/resources/application.properties -k $SECRETS_KEY
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - miner-dependencies-{{ checksum "build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - miner-dependencies-
+
+      - run: gradle dependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: miner-dependencies-{{ checksum "build.gradle" }}
+
+      # Run tests!
+      - run: gradle test
+
+      # Package into a jar
+      - run: gradle clean jar
+
+      # Build and push docker image to docker hub
+      - run:
+          name: Deploy to Docker Hub
+          command: |
+            gradle jib --image=xkavon/pi-weather-data-miner:${CIRCLE_BRANCH//feature\//}$CIRCLE_BUILD_NUM
