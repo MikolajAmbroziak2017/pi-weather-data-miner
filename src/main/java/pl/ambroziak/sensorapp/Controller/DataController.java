@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.ambroziak.sensorapp.Model.Data;
 import java.util.ArrayList;
-@Component
 
 public class DataController {
     private ArrayList<Float> allTemperature;

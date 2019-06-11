@@ -25,8 +25,8 @@ public class DataControllerTest {
 
     @Before
     public void setup() {
-        sensorController = mock(SensorController.class);
-        dataController = mock(DataController.class);
+        this.sensorController = mock(SensorController.class);
+        this.dataController = mock(DataController.class);
     }
 
     @Test
