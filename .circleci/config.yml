@@ -14,14 +14,6 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
 
-      - run:
-          name: Login to DockerHub
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
-
-      - run:
-          name: Decrpyt Secrets
-          command: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.properties.secrets -out src/main/resources/application.properties -k $SECRETS_KEY
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -46,4 +38,5 @@ jobs:
       - run:
           name: Deploy to Docker Hub
           command: |
-            gradle jib --image=xkavon/pi-weather-data-miner:${CIRCLE_BRANCH//feature\//}$CIRCLE_BUILD_NUM
+            echo "$DOCKER_PASS" | docker login --username=$DOCKER_USER --password-stdin
+            gradle jib --image=xkavon/pi-weather-data-miner:${CIRCLE_BRANCH//feature\//}
