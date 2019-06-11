@@ -1,25 +1,38 @@
 package pl.ambroziak.sensorapp;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
+import org.junit.runner.RunWith;
+import org.mockito.internal.configuration.injection.MockInjection;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import pl.ambroziak.sensorapp.Controller.DataController;
 import pl.ambroziak.sensorapp.Controller.SensorController;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SensorappApplicationTests.class)
 public class DataControllerTest {
-    @InjectMocks
+
     SensorController sensorController;
-    DataController dataController=new DataController();
+    DataController dataController;
+
+    @Before
+    public void setup() {
+        sensorController = mock(SensorController.class);
+        dataController = mock(DataController.class);
+    }
+
     @Test
     public void shouldGetData() throws InterruptedException {
-        when(sensorController.getTemperature(7)).thenReturn(new float[]{(float) 1.0, (float) 3.2});
-        assertEquals(1.0,dataController.getData().getTemprature());
+        int[] floats=new int[]{1,2,3,4};
+        assertNotEquals(sensorController.dataTransformation(floats,1),new float[]{1,2});
     }
 
     @Test
