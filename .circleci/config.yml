@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11.0.1-jdk
+      - image: hypriot/rpi-java:latest
 
     working_directory: ~/pi-weather-data-miner
 
@@ -33,6 +33,10 @@ jobs:
 
       # Package into a jar
       - run: gradle clean jar
+
+      - run:
+          name: Enabling qemu
+          command: docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
       # Build and push docker image to docker hub
       - run:
