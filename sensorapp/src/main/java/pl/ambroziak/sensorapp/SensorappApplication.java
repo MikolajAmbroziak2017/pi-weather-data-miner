@@ -6,7 +6,7 @@ import pl.ambroziak.sensorapp.Controller.SensorController;
 
 @SpringBootApplication
 public class SensorappApplication {
-
+// test
     public static void main(String[] args) {
         SpringApplication.run(SensorappApplication.class, args);
 }}
