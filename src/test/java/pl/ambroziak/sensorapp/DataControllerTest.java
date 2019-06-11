@@ -33,6 +33,7 @@ public class DataControllerTest {
     public void shouldGetData() throws InterruptedException {
         int[] floats=new int[]{1,2,3,4};
         assertNotEquals(sensorController.dataTransformation(floats,1),new float[]{1,2});
+        // test kurde
     }
 
     @Test
