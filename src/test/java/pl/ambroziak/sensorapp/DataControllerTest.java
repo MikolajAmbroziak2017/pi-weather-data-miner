@@ -5,9 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.internal.configuration.injection.MockInjection;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.ambroziak.sensorapp.Controller.DataController;
 import pl.ambroziak.sensorapp.Controller.SensorController;
+import pl.ambroziak.sensorapp.Services.RabbitServices;
 
 import java.util.ArrayList;
 
@@ -15,13 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
+@Configuration
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SensorappApplicationTests.class)
 public class DataControllerTest {
 
     SensorController sensorController;
     DataController dataController;
+
 
     @Before
     public void setup() {
@@ -30,11 +33,17 @@ public class DataControllerTest {
     }
 
     @Test
-    public void shouldGetData() throws InterruptedException {
-        int[] floats=new int[]{1,2,3,4};
+    public void shouldntGetData() throws InterruptedException {
+        final int[] floats=new int[]{1,2,3,4};
         assertNotEquals(sensorController.dataTransformation(floats,1),new float[]{1,2});
         // test kurde
     }
+
+//    @Test
+//    public void shouldGetData() throws InterruptedException {
+//       int[] floats=new int[]{63,0,28,1};
+//        assertEquals((float)sensorController.dataTransformation(floats,40)[0],(float) 28.0);
+//    }
 
     @Test
     public void shouldGetAvarangeHumidity(){
