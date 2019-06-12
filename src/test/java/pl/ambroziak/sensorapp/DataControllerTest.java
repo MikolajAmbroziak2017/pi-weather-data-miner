@@ -3,14 +3,13 @@ package pl.ambroziak.sensorapp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.internal.configuration.injection.MockInjection;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.ambroziak.sensorapp.Controller.DataController;
 import pl.ambroziak.sensorapp.Controller.SensorController;
-import pl.ambroziak.sensorapp.Services.RabbitServices;
-
+import pl.ambroziak.sensorapp.Model.SensorResolut;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,18 +24,20 @@ public class DataControllerTest {
     DataController dataController;
 
 
+
     @Before
     public void setup() {
         this.sensorController = mock(SensorController.class);
         this.dataController = mock(DataController.class);
     }
-
-    @Test
-    public void shouldntGetData() throws InterruptedException {
-        final int[] floats = new int[]{1, 2, 3, 4};
-        assertNotEquals(sensorController.dataTransformation(floats, 1), new float[]{1, 2});
-        // test kurde
-    }
+// @Test
+//    public void shouldntGetData() throws InterruptedException {
+//        SensorResolut sensorResolut= new SensorResolut( new int[]{63, 0, 28, 1},40);
+//        when(sensorDataNormalize.setSensorResolut()).thenReturn(true);
+//        sensorDataNormalize.setSensorTest(sensorResolut);
+//        assertArrayEquals(sensorDataNormalize.dataTransformation(), new float[]{28, 60});
+//        // test kurde
+//    }
 
 //    @Test
 //    public void shouldGetData() throws InterruptedException {

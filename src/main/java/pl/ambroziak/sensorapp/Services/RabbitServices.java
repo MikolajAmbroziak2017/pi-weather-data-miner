@@ -14,11 +14,11 @@ public class RabbitServices {
     @GetMapping("/send")
     public void sentMessage(SeriesData seriesDataTem, SeriesData seriesDataHum) {
         System.out.println("Convert to send . . .");
-        rabbitTemplate.convertAndSend("weather.temperature", seriesDataTem);
-        rabbitTemplate.convertAndSend("weather.humidity", seriesDataHum);
+        rabbitTemplate.convertAndSend("weather","weather.temperature", seriesDataTem);
+        rabbitTemplate.convertAndSend("weather","weather.humidity", seriesDataHum);
         System.out.println("Sent data: ");
-        System.out.println(seriesDataTem.getX() + seriesDataTem.getY());
-        System.out.println(seriesDataHum.getX() + seriesDataHum.getY());
+        System.out.println(seriesDataTem.getValue() + seriesDataTem.getGainDate());
+        System.out.println(seriesDataHum.getValue() + seriesDataHum.getGainDate());
 
 
     }

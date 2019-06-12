@@ -1,32 +1,35 @@
 package pl.ambroziak.sensorapp.Model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
-public class SeriesData {
-    private String x;
-    private Date y;
+public class SeriesData implements Serializable{
+    private LocalDateTime gainDate;
+    private String value;
 
-    public SeriesData() {
+    public SeriesData()
+    {
     }
 
-    public SeriesData(String x, Date y) {
-        this.x = x;
-        this.y = y;
+    public SeriesData( String value,LocalDateTime gainDate) {
+        this.gainDate = gainDate;
+        this.value = value;
     }
 
-    public String getX() {
-        return x;
+    public LocalDateTime getGainDate() {
+        return gainDate;
     }
 
-    public void setX(String x) {
-        this.x = x;
+    public void setGainDate(LocalDateTime gainDate) {
+        this.gainDate = gainDate;
     }
 
-    public Date getY() {
-        return y;
+    public String getValue() {
+        return value;
     }
 
-    public void setY(Date y) {
-        this.y = y;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

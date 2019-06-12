@@ -1,16 +1,20 @@
 package pl.ambroziak.sensorapp.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.ambroziak.sensorapp.Model.Data;
+
 import java.util.ArrayList;
 
 public class DataController {
     private ArrayList<Float> allTemperature;
     private ArrayList<Float> allHumidity;
     private final SensorController dht = new SensorController();
-public DataController() {
+
+
+    public DataController() {
     }
 
     private void useSensor() throws Exception {
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i <60 ; i++) {
             Thread.sleep(2000);
             float[] result = dht.getTemperature(7);
             if (result[0] != 0 && result.length != 1) {

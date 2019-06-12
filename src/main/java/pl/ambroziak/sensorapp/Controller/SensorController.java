@@ -2,10 +2,11 @@ package pl.ambroziak.sensorapp.Controller;
 
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.GpioUtil;
+import org.springframework.stereotype.Service;
+import pl.ambroziak.sensorapp.Model.SensorResolut;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
 public class SensorController {
     private static final int maxtimes = 85;
     private ArrayList<Float> temperature;
@@ -66,8 +67,8 @@ public class SensorController {
         return dataTransformation(dht11_dat,j);
     }
 
-    public float[] dataTransformation(int[] dat,int j){
-        if (j >= 40 && checkParity()) {
+    public float[] dataTransformation(int[] dat, int j) throws InterruptedException {
+        if (j >= 40 && checkParity(dat)) {
             float h = (float) ((dat[0] << 8) + dat[1]) / 10;
             if (h > 100) {
                 h = dat[0]; // for DHT11
@@ -88,11 +89,8 @@ public class SensorController {
         }
 
     }
-    private boolean checkParity() {
+    private boolean checkParity(int[] dht11_dat) {
         return dht11_dat[4] == (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3] & 0xFF);
     }
-
-
-
 
 }
