@@ -14,21 +14,24 @@ import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class SensorappApplication {
-    @Autowired
-private RabbitServices rabbitServices;
 
-    public SensorappApplication(){}
+    private static RabbitServices rabbitServices;
+
+    @Autowired
+    public SensorappApplication(RabbitServices rabbitServices) {
+        this.rabbitServices = rabbitServices;
+    }
 
     public static void main(String[] args) throws InterruptedException {
-        SensorappApplication app=new SensorappApplication();
         SpringApplication.run(SensorappApplication.class, args);
-        do{
-        Data data=new DataController().getData();
-        System.out.println(data.getTemprature()+" "+data.getHumidity());
-
-        Date date=new Date(System.currentTimeMillis());
-        app.rabbitServices.sentMessage(new SeriesData(String.valueOf(data.getTemprature()),date.toString()),new SeriesData(String.valueOf(data.getHumidity()),date.toString()));
+        do {
+            Data data = new DataController().getData();
+            System.out.println(data.getTemprature() + " " + data.getHumidity());
+            Date date = new Date(System.currentTimeMillis());
+            SeriesData temeratureSeries = new SeriesData(String.valueOf(data.getTemprature()), date);
+            SeriesData humiditySeries = new SeriesData(String.valueOf(data.getHumidity()), date);
+            rabbitServices.sentMessage(temeratureSeries, humiditySeries);
             TimeUnit.MINUTES.sleep(3);
-        }while (1==1);
+        } while (1 == 1);
     }
 }

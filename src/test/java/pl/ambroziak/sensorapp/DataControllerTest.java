@@ -13,10 +13,9 @@ import pl.ambroziak.sensorapp.Services.RabbitServices;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 @Configuration
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SensorappApplicationTests.class)
@@ -34,36 +33,41 @@ public class DataControllerTest {
 
     @Test
     public void shouldntGetData() throws InterruptedException {
-        final int[] floats=new int[]{1,2,3,4};
-        assertNotEquals(sensorController.dataTransformation(floats,1),new float[]{1,2});
+        final int[] floats = new int[]{1, 2, 3, 4};
+        assertNotEquals(sensorController.dataTransformation(floats, 1), new float[]{1, 2});
         // test kurde
     }
 
 //    @Test
 //    public void shouldGetData() throws InterruptedException {
-//       int[] floats=new int[]{63,0,28,1};
-//        assertEquals((float)sensorController.dataTransformation(floats,40)[0],(float) 28.0);
+//        int[] testData = {63, 0, 28, 1};
+//        int j = 40;
+//        float[] expected = {(float) 28.0, (float) 63.0};
+//        float[] result;
+//        when(result=sensorController.dataTransformation(testData, j)).thenCallRealMethod();
+//        assertArrayEquals(expected, result);
 //    }
 
     @Test
-    public void shouldGetAvarangeHumidity(){
-        ArrayList<Float> test= new ArrayList<>();
+    public void shouldGetAvarangeHumidity() {
+        ArrayList<Float> test = new ArrayList<>();
         test.add((float) 1.0);
         test.add((float) 2.0);
         test.add((float) 3.0);
         test.add((float) 4.0);
-        float result= DataController.getAverageHumidity(test);
-        assertEquals(2.5,result);
+        float result = DataController.getAverageHumidity(test);
+        assertEquals(2.5, result);
     }
+
     @Test
-    public void shouldGetAvarangeTemperature(){
-        ArrayList<Float> test= new ArrayList<>();
+    public void shouldGetAvarangeTemperature() {
+        ArrayList<Float> test = new ArrayList<>();
         test.add((float) 5.0);
         test.add((float) 2.3);
         test.add((float) 3.3);
         test.add((float) 4.4);
-        float result=DataController.getAverageTemperature(test);
-        assertEquals(3.75,result);
+        float result = DataController.getAverageTemperature(test);
+        assertEquals(3.75, result);
     }
 }
 

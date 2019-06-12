@@ -1,13 +1,15 @@
 package pl.ambroziak.sensorapp.Model;
 
+import java.util.Date;
+
 public class SeriesData {
     private String x;
-    private String y;
+    private Date y;
 
     public SeriesData() {
     }
 
-    public SeriesData(String x, String y) {
+    public SeriesData(String x, Date y) {
         this.x = x;
         this.y = y;
     }
@@ -20,11 +22,11 @@ public class SeriesData {
         this.x = x;
     }
 
-    public String getY() {
+    public Date getY() {
         return y;
     }
 
-    public void setY(String y) {
+    public void setY(Date y) {
         this.y = y;
     }
 }

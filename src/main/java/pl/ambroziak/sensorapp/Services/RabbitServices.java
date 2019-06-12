@@ -9,13 +9,17 @@ import pl.ambroziak.sensorapp.Model.SeriesData;
 @Service
 public class RabbitServices {
     @Autowired
-   private RabbitTemplate rabbitTemplate;
+    private RabbitTemplate rabbitTemplate;
+
     @GetMapping("/send")
-    public void sentMessage(SeriesData seriesDataTem,SeriesData seriesDataHum) {
-        rabbitTemplate.convertAndSend("temperature", seriesDataTem);
-        rabbitTemplate.convertAndSend("huminidty", seriesDataHum);
-    System.out.println(seriesDataTem.getX()+seriesDataTem.getY());
-        System.out.println(seriesDataHum.getX()+seriesDataHum.getY());
+    public void sentMessage(SeriesData seriesDataTem, SeriesData seriesDataHum) {
+        System.out.println("Convert to send . . .");
+        rabbitTemplate.convertAndSend("weather.temperature", seriesDataTem);
+        rabbitTemplate.convertAndSend("weather.humidity", seriesDataHum);
+        System.out.println("Sent data: ");
+        System.out.println(seriesDataTem.getX() + seriesDataTem.getY());
+        System.out.println(seriesDataHum.getX() + seriesDataHum.getY());
+
 
     }
 }
