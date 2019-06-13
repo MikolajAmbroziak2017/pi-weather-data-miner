@@ -34,10 +34,6 @@ jobs:
       # Package into a jar
       - run: gradle clean jar
 
-      - run:
-          name: Enabling qemu
-          command: docker run --rm --privileged multiarch/qemu-user-static:register --reset
-
       # Build and push docker image to docker hub
       - run:
           name: Deploy to Docker Hub

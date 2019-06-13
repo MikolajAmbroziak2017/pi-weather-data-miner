@@ -9,7 +9,6 @@ import pl.ambroziak.sensorapp.Model.SeriesData;
 import pl.ambroziak.sensorapp.Services.RabbitServices;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication

@@ -26,19 +26,27 @@ public class DataController {
     }
 
     public static float getAverageHumidity(ArrayList<Float> humidity) {
-        float average = (float) 0.0;
+        if(humidity.size()!=0){
+
+            float average = (float) 0.0;
         for (Float e : humidity) {
             average =average+e;
         }
-        return average / humidity.size();
+        return average / humidity.size();}
+        else
+            return (float) 0.0;
     }
 
     public static float getAverageTemperature(ArrayList<Float> temperature) {
+        if(temperature.size()!=0){
         float average = (float) 0.0;
         for (Float e : temperature) {
             average =average+e;
         }
         return average / temperature.size();
+    }
+    else
+    return (float) 0.0;
     }
 
     public Data getData() {
