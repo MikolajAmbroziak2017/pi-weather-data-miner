@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11.0.1-jdk
+      - image: hypriot/rpi-java:latest
 
     working_directory: ~/pi-weather-data-miner
 
